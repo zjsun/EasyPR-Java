@@ -1,26 +1,19 @@
 package org.easypr.test;
 
-import static org.bytedeco.javacpp.opencv_highgui.imread;
-import static org.easypr.core.CoreFunc.getPlateType;
-import static org.easypr.core.CoreFunc.projectedHistogram;
-import static org.easypr.core.CoreFunc.showImage;
+import org.bytedeco.javacpp.opencv_core.Mat;
+import org.easypr.core.*;
+import org.junit.Test;
 
 import java.util.Vector;
 
-import org.bytedeco.javacpp.opencv_core.Mat;
-import org.easypr.core.CharsIdentify;
-import org.easypr.core.CharsRecognise;
-import org.easypr.core.CoreFunc;
-import org.easypr.core.PlateDetect;
-import org.easypr.core.PlateLocate;
-import org.junit.Test;
+import static org.bytedeco.javacpp.opencv_imgcodecs.imread;
+import static org.easypr.core.CoreFunc.*;
 
 /**
  * @author lin.yao
- * 
  */
 public class EasyPrTest {
-    
+
     @Test
     public void testPlateRecognise() {
         //String imgPath = "res/image/test_image/test.jpg";
@@ -32,7 +25,7 @@ public class EasyPrTest {
         Vector<Mat> matVector = new Vector<Mat>();
         if (0 == plateDetect.plateDetect(src, matVector)) {
             CharsRecognise cr = new CharsRecognise();
-            
+
             for (int i = 0; i < matVector.size(); ++i) {
                 String result = cr.charsRecognise(matVector.get(i));
                 System.out.println("Chars Recognised: " + result);

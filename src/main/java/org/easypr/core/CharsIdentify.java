@@ -1,19 +1,18 @@
 package org.easypr.core;
 
-import static org.bytedeco.javacpp.opencv_core.CV_32FC1;
-import static org.easypr.core.CoreFunc.features;
+import org.bytedeco.javacpp.opencv_core.Mat;
+import org.bytedeco.javacpp.opencv_ml.ANN_MLP;
+import org.easypr.util.Convert;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import org.bytedeco.javacpp.opencv_core.Mat;
-import org.bytedeco.javacpp.opencv_ml.CvANN_MLP;
-import org.easypr.util.Convert;
+import static org.bytedeco.javacpp.opencv_core.CV_32FC1;
+import static org.easypr.core.CoreFunc.features;
 
 /**
  * @author Created by fanwenjie
  * @author lin.yao
- * 
  */
 public class CharsIdentify {
 
@@ -80,7 +79,7 @@ public class CharsIdentify {
         int result = -1;
         Mat output = new Mat(1, numAll, CV_32FC1);
 
-        ann.predict(f, output);
+        ann.predict(f, output, 0);//todo: which flags?
 
         int ann_min = (!isChinses) ? ((isSpeci) ? 10 : 0) : numCharacter;
         int ann_max = (!isChinses) ? numCharacter : numAll;
@@ -105,7 +104,7 @@ public class CharsIdentify {
 
     public void loadModel(String s) {
         this.ann.clear();
-        this.ann.load(s, "ann");
+        this.ann.loadANN_MLP(s, "ann");
     }
 
     static boolean hasPrint = false;
@@ -118,7 +117,7 @@ public class CharsIdentify {
         return this.path;
     }
 
-    private CvANN_MLP ann = new CvANN_MLP();
+    private ANN_MLP ann = ANN_MLP.create();
 
     private String path = "res/model/ann.xml";
 
@@ -126,12 +125,12 @@ public class CharsIdentify {
 
     private Map<String, String> map = new HashMap<String, String>();
 
-    private final char strCharacters[] = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E',
+    private final char strCharacters[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E',
             'F', 'G', 'H', /* 没有I */'J', 'K', 'L', 'M', 'N', /* 没有O */'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y',
-            'Z' };
+            'Z'};
     private final static int numCharacter = 34; // 没有I和0,10个数字与24个英文字符之和
 
-    private final String strChinese[] = { "zh_cuan" /* 川 */, "zh_e" /* 鄂 */, "zh_gan" /* 赣 */, "zh_gan1"/* 甘 */,
+    private final String strChinese[] = {"zh_cuan" /* 川 */, "zh_e" /* 鄂 */, "zh_gan" /* 赣 */, "zh_gan1"/* 甘 */,
             "zh_gui"/* 贵 */, "zh_gui1"/* 桂 */, "zh_hei" /* 黑 */, "zh_hu" /* 沪 */, "zh_ji" /* 冀 */, "zh_jin" /* 津 */,
             "zh_jing" /* 京 */, "zh_jl" /* 吉 */, "zh_liao" /* 辽 */, "zh_lu" /* 鲁 */, "zh_meng" /* 蒙 */,
             "zh_min" /* 闽 */, "zh_ning" /* 宁 */, "zh_qing" /* 青 */, "zh_qiong" /* 琼 */, "zh_shan" /* 陕 */,

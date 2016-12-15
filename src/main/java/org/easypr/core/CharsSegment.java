@@ -1,9 +1,9 @@
 package org.easypr.core;
 
+import static org.bytedeco.javacpp.opencv_core.BORDER_CONSTANT;
 import static org.bytedeco.javacpp.opencv_core.CV_32F;
 import static org.bytedeco.javacpp.opencv_core.countNonZero;
-import static org.bytedeco.javacpp.opencv_highgui.imwrite;
-import static org.bytedeco.javacpp.opencv_imgproc.BORDER_CONSTANT;
+import static org.bytedeco.javacpp.opencv_imgcodecs.imwrite;
 import static org.bytedeco.javacpp.opencv_imgproc.CV_CHAIN_APPROX_NONE;
 import static org.bytedeco.javacpp.opencv_imgproc.CV_RETR_EXTERNAL;
 import static org.bytedeco.javacpp.opencv_imgproc.CV_RGB2GRAY;

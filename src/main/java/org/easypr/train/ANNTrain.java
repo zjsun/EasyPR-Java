@@ -5,7 +5,7 @@ import static org.bytedeco.javacpp.opencv_core.CV_32FC1;
 import static org.bytedeco.javacpp.opencv_core.CV_32SC1;
 import static org.bytedeco.javacpp.opencv_core.CV_STORAGE_WRITE;
 import static org.bytedeco.javacpp.opencv_core.getTickCount;
-import static org.bytedeco.javacpp.opencv_highgui.imread;
+import static org.bytedeco.javacpp.opencv_imgcodecs.imread;
 import static org.bytedeco.javacpp.opencv_imgproc.resize;
 import static org.easypr.core.CoreFunc.projectedHistogram;
 
@@ -17,7 +17,7 @@ import org.bytedeco.javacpp.opencv_core.FileStorage;
 import org.bytedeco.javacpp.opencv_core.Mat;
 import org.bytedeco.javacpp.opencv_core.Scalar;
 import org.bytedeco.javacpp.opencv_core.Size;
-import org.bytedeco.javacpp.opencv_ml.CvANN_MLP;
+import org.bytedeco.javacpp.opencv_ml.ANN_MLP;
 import org.easypr.core.CoreFunc.Direction;
 import org.easypr.util.Convert;
 import org.easypr.util.Util;
@@ -28,7 +28,7 @@ import org.easypr.util.Util;
  */
 public class ANNTrain {
 
-    private CvANN_MLP ann = new CvANN_MLP();
+    private ANN_MLP ann = ANN_MLP.create();
 
     // 中国车牌
     private final char strCharacters[] = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E',
@@ -83,7 +83,7 @@ public class ANNTrain {
         layers.ptr(0).put(Convert.getBytes(TrainData.cols()));
         layers.ptr(1).put(Convert.getBytes(nNeruns));
         layers.ptr(2).put(Convert.getBytes(numAll));
-        ann.create(layers, CvANN_MLP.SIGMOID_SYM, 1, 1);
+        ann.create(layers, ANN_MLP.SIGMOID_SYM, 1, 1);
 
         // Prepare trainClases
         // Create a mat with n trained data by m classes
@@ -210,7 +210,7 @@ public class ANNTrain {
         // }
 
         CvFileStorage fsto = CvFileStorage.open(model_name, CvMemStorage.create(), CV_STORAGE_WRITE);
-        ann.write(fsto, "ann");
+        ann.write(new FileStorage(fsto));//todo: ann.write(fsto, "ann");
     }
 
     public int annMain() {
