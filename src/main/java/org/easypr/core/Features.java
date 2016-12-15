@@ -22,7 +22,6 @@ public class Features implements SVMCallback {
      * @see org.easypr.core.SVMCallback#getHisteqFeatures(org.bytedeco.javacpp.
      * opencv_core.Mat)
      */
-    @Override
     public Mat getHisteqFeatures(final Mat image) {
         return histeq(image);
     }
@@ -34,7 +33,6 @@ public class Features implements SVMCallback {
      * org.easypr.core.SVMCallback#getHistogramFeatures(org.bytedeco.javacpp
      * .opencv_core.Mat)
      */
-    @Override
     public Mat getHistogramFeatures(Mat image) {
         Mat grayImage = new Mat();
         cvtColor(image, grayImage, CV_RGB2GRAY);
@@ -52,7 +50,6 @@ public class Features implements SVMCallback {
      * org.easypr.core.SVMCallback#getSIFTFeatures(org.bytedeco.javacpp.opencv_core
      * .Mat)
      */
-    @Override
     public Mat getSIFTFeatures(final Mat image) {
         // TODO: 待完善
         return null;
@@ -65,7 +62,6 @@ public class Features implements SVMCallback {
      * org.easypr.core.SVMCallback#getHOGFeatures(org.bytedeco.javacpp.opencv_core
      * .Mat)
      */
-    @Override
     public Mat getHOGFeatures(final Mat image) {
         // TODO: 待完善
         return null;
