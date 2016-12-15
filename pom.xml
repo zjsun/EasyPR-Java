@@ -10,9 +10,32 @@
     <name>${project.artifactId}</name>
     <description>A java version for EasyPR(https://github.com/liuruoze/EasyPR).</description>
 
+    <properties>
+        <java-cv.version>1.3</java-cv.version>
+    </properties>
+
     <dependencyManagement>
         <dependencies>
-            
+            <dependency>
+                <groupId>org.bytedeco</groupId>
+                <artifactId>javacv-platform</artifactId>
+                <version>${java-cv.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.bytedeco</groupId>
+            <artifactId>javacv-platform</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+
+    </build>
+
+    <profiles>
+
+    </profiles>
 </project>
